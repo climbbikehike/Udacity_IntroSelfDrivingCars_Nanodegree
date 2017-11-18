@@ -5,6 +5,9 @@
 	with grids of floats and chars.
 */
 
+#ifndef DEBUGGINGHELPERS_H
+#define DEBUGGINGHELPERS_H
+
 #include <vector>
 using namespace std;
 
@@ -50,3 +53,4 @@ void show_grid(vector < vector <char> > map) {
 	}
 }
 
+#endif

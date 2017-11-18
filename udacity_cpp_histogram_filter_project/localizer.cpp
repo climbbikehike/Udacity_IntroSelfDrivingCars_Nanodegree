@@ -45,10 +45,10 @@ vector< vector <float> > initialize_beliefs(vector< vector <char> > grid) {
 	double height = grid.size();
 	double width = grid[0].size();
 	double area = height * width;
-	double belief_per_cell = 1.0 / area;
+	float belief_per_cell = 1.0 / area;
 
 	for (int i = 0; i < height; i++) {
-		vector<float>::size_type row;
+		vector<float> row;
 		for (int j = 0; j < width; j++) {
 			row.push_back(belief_per_cell);
 		}
@@ -111,11 +111,11 @@ vector< vector <float> > sense(char color,
 	float p_hit,
 	float p_miss) 
 {
-	vector<vector<float>> newGrid(beliefs.size(), vector<float>(beliefs[0].size()));;
+	vector< vector<float> > newGrid(beliefs.size(), vector<float>(beliefs[0].size()));
 
 	for (int i = 0; i < beliefs.size(); i++) {
 		for (int j = 0; j < beliefs[0].size(); j++) {
-			if (grid[i][j].compare(color) == 0) {
+			if (grid[i][j] == color) {
 				newGrid[i][j] = beliefs[i][j] * p_hit;
 			} else {
 				newGrid[i][j] = beliefs[i][j] * p_miss;
@@ -161,16 +161,35 @@ vector< vector <float> > sense(char color,
            is. If blurring = 0.0 then motion is noiseless.
 
     @return - a normalized two dimensional grid of floats 
-    	   representing the updated beliefs for the robot. 
+    	   representing the updated beliefs for the robot.
+
+		   def move(dy, dx, beliefs, blurring):
+    height = len(beliefs)
+    width = len(beliefs[0])
+    new_G = [[0.0 for i in range(height)] for j in range(width)]
+    for i, row in enumerate(beliefs):
+        for j, cell in enumerate(row):
+            new_i = (i + dy ) % width
+            new_j = (j + dx ) % height
+            # pdb.set_trace()
+            new_G[int(new_i)][int(new_j)] = cell
+    return blur(new_G, blurring) 
 */
 vector< vector <float> > move(int dy, int dx, 
 	vector < vector <float> > beliefs,
 	float blurring) 
 {
+	int height = beliefs.size();
+	int width = beliefs[0].size();
+	vector< vector<float> > newGrid(beliefs.size(), vector<float>(beliefs[0].size()));
 
-	vector < vector <float> > newGrid;
-
-	// your code here
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			int new_i = (i + dy) % height;
+			int new_j = (j + dx) % width;
+			newGrid[new_i][new_j] = beliefs[new_i][new_j];
+		}
+	}
 
 	return blur(newGrid, blurring);
 }

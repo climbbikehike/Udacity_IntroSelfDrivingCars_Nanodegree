@@ -11,7 +11,7 @@
 
 #include "localizer.cpp"
 #include <algorithm>
-// #include "helpers.cpp"
+#include "helpers.cpp"
 
 class Simulation {
 	
@@ -77,7 +77,7 @@ You can test your code by running this function.
 
 Do that by first compiling this file and then 
 running the output.
-*/
+// */
 // int main() {
 	
 // 	vector < vector <char> > map;
@@ -104,10 +104,10 @@ running the output.
 // 	}
 // 	cout << "map is\n";
 // 	Simulation simulation (map, 0.1, 0.9, pose);
-// 	// simulation = Simulation(map, 0.1, 0.9, pose);
+// 	simulation = Simulation(map, 0.1, 0.9, pose);
 // 	cout << "initialization success!\n";
 // 	show_grid(map);
 
 // 	cout << "x, y = (" << simulation.true_pose[0] << ", " << simulation.true_pose[1] << ")" << endl;
 // 	return 0;
-// }
+//}

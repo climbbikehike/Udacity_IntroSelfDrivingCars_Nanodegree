@@ -10,12 +10,15 @@
 	which are written in python.
 */
 
+#ifndef HELPERS_H
+#define HELPERS_H
+
 #include <vector>
 #include <iostream>
 #include <cmath>
 #include <string>
 #include <fstream> 
-// #include "debugging_helpers.cpp"
+#include "debugging_helpers.cpp"
 
 using namespace std;
 
@@ -34,7 +37,7 @@ using namespace std;
 
 vector< vector<float> > normalize(vector< vector <float> > grid) {
 
-	vector<vector<float>> newGrid(grid.size(), vector<float>(grid[0].size()));
+	vector< vector<float> > newGrid(grid.size(), vector<float>(grid[0].size()));
 
 	float total = 0.0;
 
@@ -110,8 +113,8 @@ vector< vector<float> > normalize(vector< vector <float> > grid) {
     return normalize(new)
 */
 vector < vector <float> > blur(vector < vector < float> > grid, float blurring) {
-	double height = grid.size();
-	double width = grid[0].size();
+	int height = grid.size();
+	int width = grid[0].size();
 
 	double center_prob = 1.0 - blurring;
 	double corner_prob = blurring / 12.0;
@@ -123,7 +126,7 @@ vector < vector <float> > blur(vector < vector < float> > grid, float blurring) 
 		{corner_prob, adjacent_prob, corner_prob},
 	};
 
-	vector<vector<float>> new_matrix(height, vector<float>(width));
+	vector< vector<float> > new_matrix(height, vector<float>(width));
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -131,15 +134,15 @@ vector < vector <float> > blur(vector < vector < float> > grid, float blurring) 
 			for (int k = -1; k < 2; k++) {
 				for (int h = -1; h < 2; h++) {
 					double multiple = window[k+1][h+1];
-					double new_i = (i + h) % height;
-					double new_j = (j + k) & width;
+					int new_i = (i + h) % height;
+					int new_j = (j + k) % width;
 					new_matrix[new_i][new_j] = new_matrix[new_i][new_j] + multiple * grid_val;
 				}
 			}
 		}
 	}
 
-	return normalize(newGrid);
+	return normalize(new_matrix);
 }
 
 /** -----------------------------------------------
@@ -280,3 +283,4 @@ vector < vector <float> > zeros(int height, int width) {
 // 	show_grid(map);
 // 	return 0;
 // }
+#endif
