@@ -18,9 +18,7 @@
 
 using namespace std;
 
-/**
-	TODO - implement this function 
-    
+/**    
     Initializes a grid of beliefs to a uniform distribution. 
 
     @param grid - a two dimensional grid map (vector of vectors 
@@ -57,9 +55,7 @@ vector< vector <float> > initialize_beliefs(vector< vector <char> > grid) {
 	return newGrid;
 }
 
-/**
-	TODO - implement this function 
-    
+/**    
     Implements robot sensing by updating beliefs based on the 
     color of a sensor measurement 
 
@@ -92,18 +88,7 @@ vector< vector <float> > initialize_beliefs(vector< vector <char> > grid) {
     	   an incorrect one.
 
     @return - a normalized two dimensional grid of floats 
-    	   representing the updated beliefs for the robot. 
-
-	    for i in range(0, len(beliefs)):
-        new_beliefs.append([])
-        for k in range(0,len(beliefs[i])):
-            if (color == grid[i][k]):
-                new_beliefs[i].append(beliefs[i][k] * p_hit)
-            else:
-                new_beliefs[i].append(beliefs[i][k] * p_miss)
-    new_beliefs = normalize(new_beliefs)
-    
-    return new_beliefs
+    	   representing the updated beliefs for the robot.
 */
 vector< vector <float> > sense(char color, 
 	vector< vector <char> > grid, 
@@ -126,9 +111,7 @@ vector< vector <float> > sense(char color,
 }
 
 
-/**
-	TODO - implement this function 
-    
+/**    
     Implements robot motion by updating beliefs based on the 
     intended dx and dy of the robot. 
 
@@ -162,18 +145,6 @@ vector< vector <float> > sense(char color,
 
     @return - a normalized two dimensional grid of floats 
     	   representing the updated beliefs for the robot.
-
-		   def move(dy, dx, beliefs, blurring):
-    height = len(beliefs)
-    width = len(beliefs[0])
-    new_G = [[0.0 for i in range(height)] for j in range(width)]
-    for i, row in enumerate(beliefs):
-        for j, cell in enumerate(row):
-            new_i = (i + dy ) % width
-            new_j = (j + dx ) % height
-            # pdb.set_trace()
-            new_G[int(new_i)][int(new_j)] = cell
-    return blur(new_G, blurring) 
 */
 vector< vector <float> > move(int dy, int dx, 
 	vector < vector <float> > beliefs,
@@ -185,9 +156,9 @@ vector< vector <float> > move(int dy, int dx,
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			int new_i = (i + dy) % height;
-			int new_j = (j + dx) % width;
-			newGrid[new_i][new_j] = beliefs[new_i][new_j];
+			int new_i = (i + dy) % width;
+			int new_j = (j + dx) % height;
+			newGrid[new_i][new_j] = beliefs[i][j];
 		}
 	}
 
